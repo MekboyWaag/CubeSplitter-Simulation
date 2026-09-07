@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fab94b3f3efabd94e8425475be402da1, type: 3}
+  m_Name: CubeSplitConfig
+  m_EditorClassIdentifier: 
+  <MinCubes>k__BackingField: 2
+  <MaxCubes>k__BackingField: 6
+  <ScaleMultiplier>k__BackingField: 0.5
+  <SplitChanceDecay>k__BackingField: 0.5
+  <ExplosionForce>k__BackingField: 10
+  <ExplosionRadius>k__BackingField: 5
+  <SpawnScatterRadius>k__BackingField: 0.25
+  _availableColors:
+  - {r: 0.92452824, g: 0, b: 0.015180209, a: 1}
+  - {r: 0.1647059, g: 0.972549, b: 0.81622636, a: 1}
+  - {r: 0.09001309, g: 0.26386693, b: 0.94070077, a: 1}
+  - {r: 0.9643147, g: 1, b: 0.19272226, a: 1}
+  - {r: 0.5176207, g: 1, b: 0, a: 1}
