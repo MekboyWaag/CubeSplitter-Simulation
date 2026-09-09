@@ -6,17 +6,17 @@ public class SplittableCube : MonoBehaviour
 {
     private static readonly int ColorProperty = Shader.PropertyToID("_Color");
 
-    private Rigidbody _rigidbody;
     private MeshRenderer _meshRenderer;
     private MaterialPropertyBlock _propBlock;
 
-    public event Action<SplittableCube> OnClicked;
+    public event Action<SplittableCube> OnInteracted;
 
+    public Rigidbody Rigidbody { get; private set; }
     public float CurrentSplitChance { get; private set; } = 1.0f;
 
     private void Awake()
     {
-        _rigidbody = GetComponent<Rigidbody>();
+        Rigidbody = GetComponent<Rigidbody>();
         _meshRenderer = GetComponent<MeshRenderer>();
         _propBlock = new MaterialPropertyBlock();
     }
@@ -31,17 +31,12 @@ public class SplittableCube : MonoBehaviour
         _propBlock.SetColor(ColorProperty, color);
         _meshRenderer.SetPropertyBlock(_propBlock);
 
-        _rigidbody.velocity = Vector3.zero;
-        _rigidbody.angularVelocity = Vector3.zero;
+        Rigidbody.velocity = Vector3.zero;
+        Rigidbody.angularVelocity = Vector3.zero;
     }
 
-    public void TriggerClick()
+    public void Interact()
     {
-        OnClicked?.Invoke(this);
-    }
-
-    public void AddExplosiveForce(Vector3 explosionCenter, float force, float radius)
-    {
-        _rigidbody.AddExplosionForce(force, explosionCenter, radius, 1f, ForceMode.Impulse);
+        OnInteracted?.Invoke(this);
     }
 }
