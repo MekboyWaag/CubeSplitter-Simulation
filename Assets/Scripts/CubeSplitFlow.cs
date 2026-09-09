@@ -2,6 +2,10 @@ using UnityEngine;
 
 public class CubeSplitFlow : MonoBehaviour
 {
+    private const float MinSafeScale = 0.01f;
+    private const float MaxExplosionMultiplier = 100f;
+
+    [Header("Dependencies")]
     [SerializeField] private CubeSplitConfigSO _config;
     [SerializeField] private CubeRaycaster _raycaster;
     [SerializeField] private CubeSpawner _spawner;
@@ -29,11 +33,21 @@ public class CubeSplitFlow : MonoBehaviour
 
     private void ProcessCubeHit(SplittableCube targetCube)
     {
+        if (targetCube == null) return;
+
         if (Random.value <= targetCube.CurrentSplitChance)
         {
             var newCubes = _spawner.SpawnSplitCubes(targetCube, _config);
-
             _exploder.ApplyExplosion(newCubes, targetCube.transform.position, _config.ExplosionForce, _config.ExplosionRadius);
+        }
+        else
+        {
+            float scaleX = targetCube.transform.localScale.x;
+            float inverseScaleMultiplier = scaleX > MinSafeScale ? (1f / scaleX) : MaxExplosionMultiplier;
+            float finalForce = _config.ExplosionForce * inverseScaleMultiplier;
+            float finalRadius = _config.ExplosionRadius * inverseScaleMultiplier;
+
+            _exploder.ApplyAreaExplosion(targetCube.transform.position, finalForce, finalRadius);
         }
 
         targetCube.Interact();
